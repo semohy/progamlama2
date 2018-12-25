@@ -31,7 +31,7 @@ This is a temporary script file.
 import pandas as pd
 import matplotlib.pyplot as plt
 
-veriseti={'haftalar':[1,2,3,4,5,6,7],'degerler':[57,48,67,55,13,21,82]}
+veriseti={'haftalar':[1,2,3,4,5,6,7,8],'degerler':[57,48,67,55,13,21,82,64]}
 
 df=pd.DataFrame(data=veriseti)
 
@@ -44,23 +44,31 @@ x_train,x_test,y_train,y_test = train_test_split(haftalar,degerler,test_size=0.3
 from sklearn.linear_model import LinearRegression
 lr=LinearRegression() #en basiti
 lr.fit(x_train,y_train)
-
-tahmin=lr.predict(8)
-print(tahmin)
+lr_tahmin=lr.predict(9)
+print(lr_tahmin)
 
 from sklearn.ensemble import RandomForestRegressor
 rf_reg = RandomForestRegressor(n_estimators=10,random_state=0)
 rf_reg.fit(haftalar,degerler)
-print("Random Forest:",rf_reg.predict(8))
+rfg_result = rf_reg.predict(9)
+print("Random Forest:",rfg_result)
 
 from sklearn.preprocessing import PolynomialFeatures
-poly_reg = PolynomialFeatures(degree=2)
+poly_reg = PolynomialFeatures(degree=1)
 haftalar_poly = poly_reg.fit_transform(haftalar)
 lin_reg2=LinearRegression()
-ling_reg2.fit(haftalar_poly,degerler)
-print("Poliynominal:",lin_reg2.predict(poly_reg.fit_transform(8)))
+lin_reg2.fit(haftalar_poly,degerler)
+poly_result =lin_reg2.predict(poly_reg.fit_transform(9))
+print("Poliynominal:",poly_result)
 
-plt.plot(haftalar(haftalar,degerler,color="blue"))
-plt.plot
+kt = (poly_result+rfg_result)/2
+print("Kendi Tahminim: %f"%kt)
+
+plt.plot(haftalar,degerler,color="blue")
+plt.plot(x_test,rf_reg.predict(x_test),color="red")
+plt.plot(x_test,lr.predict(x_test),color="green")
+plt.xlabel("Haftalar")
+plt.ylabel("Değerler")
+
 
 
