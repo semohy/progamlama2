@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+headers = ["Siparis_id","yemek id","yemek_adı","Fiyat"];
+import pandas as pd
+siparisler = pd.read_table('C:/Users/user/Desktop/deneme.csv',sep=",",names=headers)
+print(siparisler) #print(type()), data frame olduğunu yazar...
+print(type(siparisler))
+print(siparisler["Fiyat"]) # ~~ print(siparisler.Fiyat) 
+print(type(siparisler["Fiyat"])) #data frame 1 sütunu seridir...
+print(siparisler.shape) # boyutu basar 4x4 dedi
+print(siparisler.yemek_adı+" "+siparisler.Fiyat)
+print(siparisler.describe())
+siparisler.drop('Siparis_id',axis=1,inplace=True) #Siparis_id  sütunu silindi
+print(siparisler)
+print(siparisler.sort_values('Fiyat',ascending="True")) # ascening true false
