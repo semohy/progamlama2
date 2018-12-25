@@ -17,3 +17,50 @@ print(siparisler.describe())
 siparisler.drop('Siparis_id',axis=1,inplace=True) #Siparis_id  sütunu silindi
 print(siparisler)
 print(siparisler.sort_values('Fiyat',ascending="True")) # ascening true false
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+# 25 December 2018 LESSON 2 Prediction... 
+#train ve test olarak 2 ye ayır,
+#veriler arası ilişki çözülür test verisi tahminlemeye calısılır gercek verilerle karsılastırılır...
+#%33 train ayrılır literatur olarak
+import pandas as pd
+import matplotlib.pyplot as plt
+
+veriseti={'haftalar':[1,2,3,4,5,6,7],'degerler':[57,48,67,55,13,21,82]}
+
+df=pd.DataFrame(data=veriseti)
+
+haftalar=df[["haftalar"]]
+degerler=df[["degerler"]] # tek köseli parantez seri cift dataframe cekiyor (column)
+
+from sklearn.cross_validation import train_test_split
+x_train,x_test,y_train,y_test = train_test_split(haftalar,degerler,test_size=0.33,random_state=0)
+
+from sklearn.linear_model import LinearRegression
+lr=LinearRegression() #en basiti
+lr.fit(x_train,y_train)
+
+tahmin=lr.predict(8)
+print(tahmin)
+
+from sklearn.ensemble import RandomForestRegressor
+rf_reg = RandomForestRegressor(n_estimators=10,random_state=0)
+rf_reg.fit(haftalar,degerler)
+print("Random Forest:",rf_reg.predict(8))
+
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree=2)
+haftalar_poly = poly_reg.fit_transform(haftalar)
+lin_reg2=LinearRegression()
+ling_reg2.fit(haftalar_poly,degerler)
+print("Poliynominal:",lin_reg2.predict(poly_reg.fit_transform(8)))
+
+plt.plot(haftalar(haftalar,degerler,color="blue"))
+plt.plot
+
+
